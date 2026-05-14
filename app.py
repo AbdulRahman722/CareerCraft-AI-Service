@@ -613,6 +613,25 @@ def do_gap_analysis(user_skills, job_data):
 # ENDPOINTS
 # ══════════════════════════════════════════════════════════
 
+@app.route("/", methods=["GET"])
+def index():
+    return jsonify({
+        "service": "CareerCraft AI Service",
+        "status": "running",
+        "version": "1.0.0",
+        "dataset": {
+            "skills": len(SKILL_CATALOG),
+            "job_roles": len(JOB_ROLES),
+            "courses": len(COURSE_CATALOG)
+        },
+        "endpoints": {
+            "GET":  ["/", "/health", "/skills/categories"],
+            "POST": ["/career-recommendations", "/job-match", "/advice",
+                     "/suggested-skills", "/resume-review", "/interview-simulate",
+                     "/salary-benchmark", "/chatbot"]
+        }
+    }), 200
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
