@@ -15,6 +15,14 @@ app = Flask(__name__)
 
 AI_SERVICE_SECRET = os.environ.get("AI_SERVICE_SECRET")
 
+@app.before_request
+def check_internal_secret():
+    if request.path in ("/", "/health"):
+        return
+    secret = request.headers.get("X-Internal-Key")
+    if not AI_SERVICE_SECRET or secret != AI_SERVICE_SECRET:
+        return jsonify({"error": "Unauthorized"}), 401
+
 # ══════════════════════════════════════════════════════════
 # SKILL CATALOG — 110 Skills across 12 Categories
 # ══════════════════════════════════════════════════════════
