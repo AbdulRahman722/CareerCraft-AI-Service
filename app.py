@@ -13,6 +13,8 @@ import os
 
 app = Flask(__name__)
 
+AI_SERVICE_SECRET = os.environ.get("AI_SERVICE_SECRET")
+
 # ══════════════════════════════════════════════════════════
 # SKILL CATALOG — 110 Skills across 12 Categories
 # ══════════════════════════════════════════════════════════
